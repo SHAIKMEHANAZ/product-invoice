@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                echo 'Source code checked out successfully'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'mvn -B clean compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn -B test'
+            }
+        }
+
+        stage('Packages') {
+            steps {
+                bat 'mvn -B package'
+            }
+        }
+    }
+}
